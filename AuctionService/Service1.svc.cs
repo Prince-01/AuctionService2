@@ -10,24 +10,47 @@ namespace AuctionService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in code, svc and config file together.
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
-    public class Service1 : IService1
+    public class Service1 : IRestAuction
     {
-        public string GetData(int value)
+        public static List<Auction> auctions = new List<Auction>
         {
-            return string.Format("You entered: {0}", value);
+            new Auction(0, "blondynka", 150),
+            new Auction(1, "brunetka", 130),
+            new Auction(2, "ruda", 100),
+        };
+        public static int cid = 3;
+
+        public void Add(string name, double startingprice)
+        {
+            auctions.Add(new Auction(cid++, name, startingprice));
         }
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
+        public string Finish(string id)
         {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
+            return auctions.Find(a => a.ID == int.Parse(id)).Finish();
+        }
+
+        public Auction Get(string id)
+        {
+            return auctions.Find(a => a.ID == int.Parse(id));
+        }
+
+        public List<Auction> GetAll()
+        {
+            return auctions;
+        }
+
+        public string Remove(string id)
+        {
+            if (auctions.Find(a => a.ID == int.Parse(id)) == null)
+                return "nie ma takiej aukcji";
+            auctions.RemoveAll(a => a.ID == int.Parse(id));
+            return "ok";
+        }
+
+        public string UpdateBy(string id, string user, double price)
+        {
+            return auctions.Find(a => a.ID == int.Parse(id)).Bid(user, price);
         }
     }
 }
