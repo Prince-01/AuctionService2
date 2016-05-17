@@ -8,11 +8,6 @@ using System.Threading.Tasks;
 
 namespace AuctionClient
 {
-    struct add
-    {
-        public string name;
-        public double startingprice;
-    }
     class Program
     {
         static void Main(string[] args)
@@ -64,12 +59,6 @@ namespace AuctionClient
                             string id = "";
                             Console.WriteLine("podaj id");
                             id = Console.ReadLine();
-                            string name = "";
-                            Console.WriteLine("podaj imie");
-                            name = Console.ReadLine();
-                            string price = "";
-                            Console.WriteLine("podaj swoja cene");
-                            price = Console.ReadLine().Replace(',', '.');
                             bytes = UTF8Encoding.UTF8.GetBytes("{\"id\":\"" + id + "\"}");
                         }
                         req.ContentLength = bytes.Length;

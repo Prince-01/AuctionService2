@@ -32,7 +32,8 @@ namespace AuctionService
         [OperationContract]
         [WebInvoke(UriTemplate = "auctions/remove",
             Method = "PUT",
-            RequestFormat = WebMessageFormat.Json)]
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.WrappedRequest)]
         string Remove(string id);
 
         [OperationContract]
@@ -45,7 +46,8 @@ namespace AuctionService
         [OperationContract]
         [WebInvoke(UriTemplate = "auctions/finish",
             Method = "PUT",
-            RequestFormat = WebMessageFormat.Json)]
+            RequestFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.WrappedRequest)]
         string Finish(string id);
 
         // TODO: Add your service operations here
@@ -81,6 +83,7 @@ namespace AuctionService
         {
             if (!Available)
                 return "nie mozna zakonczyc niedostepnej aukcji";
+            Available = false;
             return "ok";
         }
 
