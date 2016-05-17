@@ -40,6 +40,11 @@ namespace AuctionService
             return auctions;
         }
 
+        public int Remainings()
+        {
+            return auctions.Count(a => a.Available);
+        }
+
         public string Remove(string id)
         {
             if (auctions.Find(a => a.ID == int.Parse(id)) == null)

@@ -13,6 +13,11 @@ namespace AuctionService
     public interface IRestAuction
     {
         [OperationContract]
+        [WebGet(UriTemplate = "remainingauctions/",
+            ResponseFormat = WebMessageFormat.Json)]
+        int Remainings();
+
+        [OperationContract]
         [WebGet(UriTemplate = "auctions/",
             ResponseFormat = WebMessageFormat.Json)]
         List<Auction> GetAll();
