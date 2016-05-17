@@ -12,6 +12,8 @@ namespace AuctionClient
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Podaj adres domyslny: ");
+            string def = Console.ReadLine();
             do
             {
                 try
@@ -20,11 +22,12 @@ namespace AuctionClient
 
                     Console.WriteLine("Enter method: ");
                     string method = Console.ReadLine();
+                    if ("EXIT".Contains(method.ToUpper())) return;
 
                     Console.WriteLine("Enter URI: ");
                     string uri = Console.ReadLine();
 
-                    HttpWebRequest req = WebRequest.Create(uri) as HttpWebRequest;
+                    HttpWebRequest req = WebRequest.Create(def + "/" + uri) as HttpWebRequest;
                     req.KeepAlive = false;
                     req.Method = method.ToUpper();
 
@@ -67,6 +70,7 @@ namespace AuctionClient
                         pd.Write(bytes, 0, bytes.Length);
                         pd.Close();
                     }
+                    
                     HttpWebResponse resp = req.GetResponse() as HttpWebResponse;
 
                     Encoding enc = System.Text.Encoding.GetEncoding(1252);
